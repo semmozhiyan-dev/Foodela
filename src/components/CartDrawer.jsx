@@ -1,10 +1,13 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { X, Plus, Minus, ShoppingBag, ArrowRight, Trash2 } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import EmptyState from './EmptyState';
 
 const CartDrawer = () => {
   const { isCartOpen, setIsCartOpen, cartItems, updateQuantity, removeFromCart, cartTotal } = useCart();
+  const navigate = useNavigate();
 
   return (
     <AnimatePresence>
@@ -89,6 +92,7 @@ const CartDrawer = () => {
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
+                  onClick={() => { setIsCartOpen(false); navigate('/checkout'); }}
                   className="w-full bg-primary text-white py-4 rounded-2xl font-bold text-lg shadow-glow flex items-center justify-center gap-2"
                 >
                   Checkout <ArrowRight size={20} />
